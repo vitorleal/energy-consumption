@@ -1,25 +1,41 @@
 <header class="app-header" data-ng-include="'views/include/header.html'"></header>
 
 <section class="app-section">
+  <div class="app-user-area" data-ng-include="'views/include/balance.html'"></div>
 
   <div class="app-content">
-    <h4>Selecione a quantia que deseja carregar:</h4>
-    <div class="row ">
+    <h4>Quanto deseja recarregar:</h4>
+
+    <div class="row credit-area">
       <div class="col-xs-6">
-        <button data-ng-click="back()" class="btn btn-block btn-default">R$ 5</button>
+        <label data-ng-class="{ 'credit-selected': credit == 5 }" class="credit-btn btn btn-lg btn-block btn-default">
+          R$ 5
+          <input class="credit-radio" type="radio" ng-model="credit" value="5">
+        </label>
       </div>
       <div class="col-xs-6">
-        <button data-ng-click="back()" class="btn btn-block btn-default">R$ 10</button>
+        <label data-ng-class="{ 'credit-selected': credit == 10 }" class="credit-btn btn btn-lg btn-block btn-default">
+          R$ 10
+          <input class="credit-radio" type="radio" ng-model="credit" value="10">
+        </label>
       </div>
       <div class="col-xs-6">
-        <button data-ng-click="back()" class="btn btn-block btn-default">R$ 20</button>
+        <label data-ng-class="{ 'credit-selected': credit == 20 }" class="credit-btn btn btn-lg btn-block btn-default">
+          R$ 20
+          <input class="credit-radio" type="radio" ng-model="credit" value="20">
+        </label>
       </div>
       <div class="col-xs-6">
-        <button data-ng-click="back()" class="btn btn-block btn-default">R$ 50</button>
+        <label data-ng-class="{ 'credit-selected': credit == 50 }" class="credit-btn btn btn-lg btn-block btn-default">
+          R$ 50
+          <input class="credit-radio" type="radio" ng-model="credit" value="50">
+        </label>
       </div>
     </div>
 
-    <button data-ng-click="back()" class="btn btn-lg btn-block btn-success">Comprar</button>
-    <button data-ng-click="back()" class="btn btn-lg btn-block btn-default">Cancelar</button>
+    <div class="credit-buttons">
+      <button data-ng-click="buy()" class="btn btn-lg btn-block btn-success">Comprar</button>
+      <button data-ng-click="goBack()" class="btn btn-lg btn-block btn-default">Cancelar</button>
+    </div>
   </div>
 </section>

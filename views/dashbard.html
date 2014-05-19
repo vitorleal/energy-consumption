@@ -1,16 +1,9 @@
 <header class="app-header" data-ng-include="'views/include/header.html'"></header>
 
 <section class="app-section">
-  <div class="app-user-area">
-    <div class="">
-      Seu saldo é:
-    </div>
-    <div class="user-balance text-right">
-      R$ <strong>{{ balance }}</strong>
-    </div>
-  </div>
+  <div class="app-user-area" data-ng-include="'views/include/balance.html'"></div>
 
   <div class="app-content">
-    <button data-ng-click="buy()" class="btn btn-block btn-lg btn-default">Comprar crédito</button>
+    <button data-ng-click="goToCredit()" class="btn btn-block btn-lg btn-default">Comprar crédito</button>
   </div>
 </section>

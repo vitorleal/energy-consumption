@@ -17,6 +17,7 @@ body {
 }
 .btn-yellow {
   background: #fdc06f;
+  border-color: #fc9f24;
   color: #ffffff;
 }
 .btn-yellow:hover {
@@ -52,6 +53,7 @@ body {
   background: #ffffff;
   border-bottom: solid 2px #cdcdcd;
   color: #fdc06f;
+  padding: 10px 20px;
 }
 .user-balance {
   font-size: 1.5em;
@@ -61,4 +63,22 @@ body {
 }
 .user-balance strong {
   font-size: 2em;
+}
+/* Credit */
+.credit-radio {
+  display: none;
+}
+.credit-area .col-xs-6 {
+  margin: 10px 0;
+}
+.credit-btn:hover,
+.credit-btn:focus,
+.credit-btn.credit-selected {
+  background: #fdc06f;
+  border-color: #fc9f24;
+  color: #b76903;
+  font-weight: bold;
+}
+.credit-buttons {
+  margin-top: 30px;
 }

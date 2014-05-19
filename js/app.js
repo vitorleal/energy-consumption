@@ -1,5 +1,9 @@
 var light = angular.module('light', ['ngRoute', 'light.controllers']);
 
+light.run(['$rootScope', function ($rootScope) {
+  $rootScope.balance = 40;
+}]);
+
 light.config(['$routeProvider', '$locationProvider', function ($routeProvider, $locationProvider) {
   $routeProvider
     .when('/', {

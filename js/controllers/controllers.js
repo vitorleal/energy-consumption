@@ -9,17 +9,32 @@ controllers.controller('Login', ['$scope', '$location', function ($scope, $locat
 
 
 //Dashboard
-controllers.controller('Dashbard', ['$scope', '$location', function ($scope, $location) {
-  $scope.balance = '40';
-  $scope.buy = function () {
+controllers.controller('Dashbard', ['$rootScope', '$scope', '$location', function ($rootScope, $scope, $location) {
+  $scope.balance = $rootScope.balance;
+  $scope.goToCredit = function () {
     $location.path('credit');
   };
 }]);
 
 
 //Buy Credit
-controllers.controller('Credit', ['$scope', '$location', function ($scope, $location) {
-  $scope.back = function () {
+controllers.controller('Credit', ['$rootScope', '$scope', '$location', function ($rootScope, $scope, $location) {
+  $scope.balance = $rootScope.balance;
+
+  $scope.buy = function () {
+
+    if (!$scope.credit) {
+
+    } else {
+      var balance = parseInt($scope.balance),
+          credit  = parseInt($scope.credit);
+
+      $rootScope.balance = balance + credit;
+      $location.path('dashboard');
+    }
+  };
+
+  $scope.goBack = function () {
     $location.path('dashboard');
   };
 }]);

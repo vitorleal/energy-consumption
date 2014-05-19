@@ -19,6 +19,7 @@ body {
 
 .btn-yellow {
   background: @yellow;
+  border-color: darken(@yellow, 15%);
   color: @white;
 
   &:hover {
@@ -73,3 +74,30 @@ body {
     font-size: 2em;
   }
 }
+
+/* Credit */
+.credit-radio {
+  display: none;
+}
+
+.credit-area {
+  .col-xs-6 {
+    margin: 10px 0;
+  }
+}
+
+.credit-btn {
+  &:hover,
+  &:focus,
+  &.credit-selected {
+    background: @yellow;
+    border-color: darken(@yellow, 15%);
+    color: darken(@yellow, 35%);;
+    font-weight: bold;
+  }
+}
+
+.credit-buttons {
+  margin-top: 30px;
+}
+
