@@ -12,6 +12,6 @@
     "gulp-concat": "^2.2.0",
     "gulp-uglify": "^0.3.0",
     "gulp": "^3.6.2",
-    "gulp-less": "^1.2.3"
+    "gulp-less": "^1.2.3",
   }
 }

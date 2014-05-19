@@ -1,0 +1,75 @@
+@import 'variables';
+@import 'mixings';
+
+body {
+  background: @green;
+}
+
+
+/*
+ * Login
+ */
+.login-area {
+  background: url(../img/logo.png) no-repeat center top;
+  color: @white;
+  margin: 15px auto 0 auto;
+  padding: 150px 20px 20px 20px;
+  width: 80%;
+}
+
+.btn-yellow {
+  background: @yellow;
+  color: @white;
+
+  &:hover {
+    background: darken(@yellow, 15%);
+    color: @white;
+  }
+}
+
+/* Header */
+.app-header {
+  border-bottom: solid 2px @yellow;
+  height: 50px;
+
+  .logo {
+    background: url(../img/logo-header.png) no-repeat center center;
+    display: block;
+    float: left;
+    height: 30px;
+    margin: 8px 20px;
+    width: 78px;
+    overflow: hidden;
+    text-indent: -100%;
+  }
+}
+
+/* Section */
+.app-section {
+  background: @grayLight;
+  min-height: 500px;
+}
+
+
+/* Content */
+.app-content {
+  padding: 20px;
+}
+
+/* User balance */
+.app-user-area {
+  background: @white;
+  border-bottom: solid 2px darken(@grayLight, 10%);
+  color: @yellow;
+  padding: 10px 20px;
+}
+
+.user-balance {
+  font-size: 1.5em;
+  line-height: 1.8em;
+  .box-sizing();
+
+  strong {
+    font-size: 2em;
+  }
+}
