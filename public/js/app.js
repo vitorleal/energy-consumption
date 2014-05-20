@@ -30,15 +30,15 @@ light.config(['$routeProvider', '$locationProvider', function ($routeProvider, $
       templateUrl: 'views/credit.html',
       controller : 'Credit',
       resolve: {
-        user: ['LoginService', '$rootScope', function (LoginService, $rootScope) {
-          var user = JSON.parse(localStorage.getItem('user'));
+        user: ['Local', 'LoginService', '$rootScope', function (Local, LoginService, $rootScope) {
+          var user = Local.get('user');
 
           LoginService.send({
             email: user.email,
             pass : user.pass
           })
           .success(function (data) {
-            localStorage.setItem('user', JSON.stringify(data));
+            Local.set('user', data);
             $rootScope.user = data;
           });
         }]
