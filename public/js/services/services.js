@@ -1,13 +1,28 @@
 var services = angular.module('light.services', []);
 
 //Login factory
-services.factory('LoginService', ['$http', function ($http) {
+services.factory('LoginService', ['$http', '$rootScope', 'Local', function ($http, $rootScope, Local) {
   var path    = '/login',
       factory = {};
 
-  //Send data
+  //Login
   factory.send = function (data) {
     var login = $http.post(path, data);
+
+    return login;
+  };
+
+  //Login resolved
+  factory.resolve = function (data) {
+    var login = $http.post(path, data).then(function (resp) {
+      var data = resp.data;
+
+      Local.set('user', data);
+      $rootScope.user = data;
+
+      console.log(data);
+      return data;
+    });
 
     return login;
   };
@@ -88,26 +103,20 @@ services.factory('httpInterceptor', ['$q', '$rootScope', function ($q, $rootScop
 
   return {
     request: function (config) {
-
       numLoadings++;
-
-      // Show loader
       $rootScope.$broadcast("loader:show");
+
       return config || $q.when(config)
     },
     response: function (response) {
-
       if ((--numLoadings) === 0) {
-        // Hide loader
         $rootScope.$broadcast("loader:hide");
       }
 
       return response || $q.when(response);
     },
     responseError: function (response) {
-
       if (!(--numLoadings)) {
-        // Hide loader
         $rootScope.$broadcast("loader:hide");
       }
 

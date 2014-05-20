@@ -29,18 +29,16 @@ light.config(['$httpProvider', '$routeProvider', '$locationProvider', function (
       controller : 'Dashbard',
       public: false,
       resolve: {
-        balance: ['Local', 'LoginService', '$rootScope', function (Local, LoginService, $rootScope) {
+        user: ['Local', 'LoginService', function (Local, LoginService) {
           var user = Local.get('user');
 
           if (user) {
-            LoginService.send({
+            var login = LoginService.resolve({
               email: user.email,
               pass : user.pass
-            })
-            .success(function (data) {
-              Local.set('user', data);
-              $rootScope.user = data;
             });
+
+            return login;
           }
         }]
       }
@@ -51,19 +49,16 @@ light.config(['$httpProvider', '$routeProvider', '$locationProvider', function (
       controller : 'Credit',
       public: false,
       resolve: {
-        user: ['Local', 'LoginService', '$rootScope', function (Local, LoginService, $rootScope) {
+        user: ['Local', 'LoginService', function (Local, LoginService) {
           var user = Local.get('user');
 
           if (user) {
-            LoginService.send({
+            var login = LoginService.resolve({
               email: user.email,
               pass : user.pass
-            })
-            .success(function (data) {
-              Local.set('user', data);
-              $rootScope.user = data;
             });
 
+            return login;
           }
         }]
       }
@@ -74,19 +69,16 @@ light.config(['$httpProvider', '$routeProvider', '$locationProvider', function (
       controller : 'Debit',
       public: false,
       resolve: {
-        user: ['Local', 'LoginService', '$rootScope', function (Local, LoginService, $rootScope) {
+        user: ['Local', 'LoginService', function (Local, LoginService) {
           var user = Local.get('user');
 
           if (user) {
-            LoginService.send({
+            var login = LoginService.resolve({
               email: user.email,
               pass : user.pass
-            })
-            .success(function (data) {
-              Local.set('user', data);
-              $rootScope.user = data;
             });
 
+            return login;
           }
         }]
       }
