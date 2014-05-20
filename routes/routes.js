@@ -69,9 +69,9 @@ exports.addCredit = function (req, res) {
 //Populate DB
 var populateDB = function () {
   var user = {
-    name: 'John Doe',
-    email: 'john@gmail.com',
-    pass : '12345678',
+    name: 'Pablo Larrieux',
+    email: 'pablo@telefonica.com',
+    pass : '1234',
     balance: 50
   };
 
