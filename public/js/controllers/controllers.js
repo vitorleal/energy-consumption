@@ -1,7 +1,7 @@
 var controllers = angular.module('light.controllers', ['ngDialog']);
 
 //Loing
-controllers.controller('Login', ['ngDialog', '$scope', '$location', 'LoginService', function (ngDialog, $scope, $location, LoginService) {
+controllers.controller('Login', ['Local', 'ngDialog', '$scope', '$location', 'LoginService', function (Local, ngDialog, $scope, $location, LoginService) {
   $scope.login = function () {
     LoginService.send({
       email: $scope.email,
@@ -17,7 +17,7 @@ controllers.controller('Login', ['ngDialog', '$scope', '$location', 'LoginServic
         });
 
       } else {
-        localStorage.setItem('user', JSON.stringify(data));
+        Local.set('user', data);
         $location.path('dashboard');
       }
     });

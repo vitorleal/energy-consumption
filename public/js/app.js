@@ -11,16 +11,15 @@ light.config(['$routeProvider', '$locationProvider', function ($routeProvider, $
       templateUrl: 'views/dashbard.html',
       controller : 'Dashbard',
       resolve: {
-        balance: ['LoginService', '$rootScope', function (LoginService, $rootScope) {
-          var user = JSON.parse(localStorage.getItem('user')),
-              balance;
+        balance: ['Local', 'LoginService', '$rootScope', function (Local, LoginService, $rootScope) {
+          var user = Local.get('user');
 
           LoginService.send({
             email: user.email,
             pass : user.pass
           })
           .success(function (data) {
-            localStorage.setItem('user', JSON.stringify(data));
+            Local.set('user', data);
             $rootScope.user = data;
           });
         }]

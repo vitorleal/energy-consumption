@@ -30,3 +30,21 @@ services.factory('CreditService', ['$http', function ($http) {
 
   return factory;
 }]);
+
+
+//Local
+services.factory('Local', ['$rootScope', function ($rootScope) {
+  var factory = {};
+
+  factory.set = function (name, value) {
+   localStorage.setItem(name, JSON.stringify(value));
+  };
+
+  factory.get = function (name) {
+    var local = localStorage.getItem(name);
+
+    return JSON.parse(local);
+  };
+
+  return factory;
+}]);
