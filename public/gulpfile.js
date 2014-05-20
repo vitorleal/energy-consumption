@@ -5,7 +5,7 @@ var gulp   = require('gulp'),
 
 var paths = {
   scripts: ['js/**/*.js', 'js/app.js', '!js/*.min.js', '!js/libs/**/*.js'],
-  less: 'less/app.less',
+  less: ['less/app.less', 'less/*.less', 'less/**/*.less'],
   views: 'views/*.html'
 };
 
@@ -18,10 +18,8 @@ gulp.task('scripts', function() {
 
 
 gulp.task('less', function () {
-  gulp.src(paths.less)
-    .pipe(less({
-      paths: ['less']
-    }))
+  gulp.src('less/app.less')
+    .pipe(less())
     .pipe(gulp.dest('css'));
 });
 
@@ -31,5 +29,4 @@ gulp.task('watch', function() {
   gulp.watch(paths.less, ['less']);
 });
 
-gulp.task('default', ['scripts', 'less']);
-gulp.task('watch', ['watch']);
+gulp.task('default', ['scripts', 'less', 'watch']);
