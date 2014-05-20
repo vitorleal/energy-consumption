@@ -26,10 +26,15 @@ controllers.controller('Login', ['Local', 'ngDialog', '$scope', '$location', 'Lo
 
 
 //Dashboard
-controllers.controller('Dashbard', ['$rootScope', '$scope', '$location', '$timeout', function ($rootScope, $scope, $location, $timeout) {
+controllers.controller('Dashbard', ['HistoryService','$rootScope', '$scope', '$location', '$timeout', function (HistoryService, $rootScope, $scope, $location, $timeout) {
   $timeout(function () {
     $scope.balance = $rootScope.user.balance;
   }, 100);
+
+  HistoryService.get({ email: $rootScope.user.email })
+  .success(function (data) {
+    $scope.history = data.history;
+  });
 
   $scope.goToCredit = function () {
     $location.path('credit');

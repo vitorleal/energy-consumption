@@ -96,6 +96,27 @@ exports.removeCredit = function (req, res) {
 };
 
 
+//Get history
+exports.showHistory = function (req, res) {
+  var email = req.body.email;
+
+  db.collection('history', function (err, collection) {
+    if (err) {
+
+    } else {
+      collection.find({ email: email }).toArray(function (err, history) {
+        if (!history) {
+          res.send({ history: [] });
+
+        } else {
+          res.send({ history: history });
+        }
+      });
+    }
+  });
+};
+
+
 //Populate DB
 var populateDB = function () {
   var user = {

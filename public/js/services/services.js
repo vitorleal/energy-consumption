@@ -48,6 +48,22 @@ services.factory('DebitService', ['$http', function ($http) {
 }]);
 
 
+//Debit factory
+services.factory('HistoryService', ['$http', function ($http) {
+  var path    = '/history',
+      factory = {};
+
+  //History
+  factory.get = function (data) {
+    var history = $http.post(path, data);
+
+    return history;
+  };
+
+  return factory;
+}]);
+
+
 //Local
 services.factory('Local', ['$rootScope', function ($rootScope) {
   var factory = {};
