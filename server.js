@@ -13,5 +13,5 @@ app.post('/login', routes.login);
 app.post('/credit', routes.addCredit);
 
 
-app.listen(8000);
-console.log('Server running at http://127.0.0.1:8000/');
+app.listen(3333);
+console.log('Server running at http://127.0.0.1:3333/');
