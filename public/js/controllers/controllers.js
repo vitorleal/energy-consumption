@@ -26,8 +26,10 @@ controllers.controller('Login', ['Local', 'ngDialog', '$scope', '$location', 'Lo
 
 
 //Dashboard
-controllers.controller('Dashbard', ['$rootScope', '$scope', '$location', function ($rootScope, $scope, $location) {
-  $scope.balance = $rootScope.user.balance;
+controllers.controller('Dashbard', ['$rootScope', '$scope', '$location', '$timeout', function ($rootScope, $scope, $location, $timeout) {
+  $timeout(function () {
+    $scope.balance = $rootScope.user.balance;
+  }, 10);
 
   $scope.goToCredit = function () {
     $location.path('credit');

@@ -80,6 +80,7 @@ body {
   line-height: 1.8em;
   box-sizing: border-box;
   -mox-box-sizing: border-box;
+  min-height: 45px;
 }
 .user-balance strong {
   font-size: 2em;
