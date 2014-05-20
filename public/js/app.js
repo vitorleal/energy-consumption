@@ -1,24 +1,49 @@
-var light = angular.module('light', ['ngRoute', 'light.controllers']);
-
-light.run(['$rootScope', function ($rootScope) {
-  $rootScope.balance = 40;
-}]);
+var light = angular.module('light', ['ngRoute', 'light.services', 'light.controllers']);
 
 light.config(['$routeProvider', '$locationProvider', function ($routeProvider, $locationProvider) {
   $routeProvider
     .when('/', {
       templateUrl: 'views/login.html',
-      controller : 'Login',
+      controller : 'Login'
+    })
+    //Dashboard
+    .when('/dashboard', {
+      templateUrl: 'views/dashbard.html',
+      controller : 'Dashbard',
       resolve: {
+        balance: ['LoginService', '$rootScope', function (LoginService, $rootScope) {
+          var user = JSON.parse(localStorage.getItem('user')),
+              balance;
+
+          LoginService.send({
+            email: user.email,
+            pass : user.pass
+          })
+          .success(function (data) {
+            localStorage.setItem('user', JSON.stringify(data));
+            $rootScope.user = data;
+          });
+        }]
       }
-  })
-  .when('/dashboard', {
-    templateUrl: 'views/dashbard.html',
-    controller : 'Dashbard'
-  })
-  .when('/credit', {
-    templateUrl: 'views/credit.html',
-    controller : 'Credit'
-  })
-  .otherwise({ redirectTo: '/' });
+    })
+    //Credit
+    .when('/credit', {
+      templateUrl: 'views/credit.html',
+      controller : 'Credit',
+      resolve: {
+        user: ['LoginService', '$rootScope', function (LoginService, $rootScope) {
+          var user = JSON.parse(localStorage.getItem('user'));
+
+          LoginService.send({
+            email: user.email,
+            pass : user.pass
+          })
+          .success(function (data) {
+            localStorage.setItem('user', JSON.stringify(data));
+            $rootScope.user = data;
+          });
+        }]
+      }
+    })
+    .otherwise({ redirectTo: '/' });
 }]);

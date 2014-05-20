@@ -1,5 +1,6 @@
 var express    = require('express'),
-    bodyParser = require('body-parser')
+    bodyParser = require('body-parser'),
+    routes     = require('./routes/routes'),
 	  app        = express();
 
 app.use(bodyParser());
@@ -7,9 +8,9 @@ app.use(express.static('public'));
 
 
 //Main root
-app.get('/', function (req, res) {
-	res.sendfile(__dirname + '/public/index.html');
-});
+app.get('/', routes.index);
+app.post('/login', routes.login);
+app.post('/credit', routes.addCredit);
 
 
 app.listen(8000);

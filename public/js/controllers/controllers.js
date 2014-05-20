@@ -1,16 +1,34 @@
 var controllers = angular.module('light.controllers', ['ngDialog']);
 
 //Loing
-controllers.controller('Login', ['$scope', '$location', function ($scope, $location) {
+controllers.controller('Login', ['ngDialog', '$scope', '$location', 'LoginService', function (ngDialog, $scope, $location, LoginService) {
   $scope.login = function () {
-    $location.path('dashboard');
+    LoginService.send({
+      email: $scope.email,
+      pass : $scope.pass
+    })
+    .success(function (data) {
+      if (data.error) {
+        $scope.error = data.error;
+
+        ngDialog.open({
+          template: 'views/include/error.html',
+          scope   : $scope
+        });
+
+      } else {
+        localStorage.setItem('user', JSON.stringify(data));
+        $location.path('dashboard');
+      }
+    });
   };
 }]);
 
 
 //Dashboard
 controllers.controller('Dashbard', ['$rootScope', '$scope', '$location', function ($rootScope, $scope, $location) {
-  $scope.balance = $rootScope.balance;
+  $scope.balance = $rootScope.user.balance;
+
   $scope.goToCredit = function () {
     $location.path('credit');
   };
@@ -19,20 +37,22 @@ controllers.controller('Dashbard', ['$rootScope', '$scope', '$location', functio
 
 //Buy Credit
 controllers.controller('Credit', ['ngDialog', '$rootScope', '$scope', '$location', function (ngDialog, $rootScope, $scope, $location) {
-  $scope.balance = $rootScope.balance;
+  $scope.balance = $rootScope.user.balance;
 
   $scope.buy = function () {
     if (!$scope.credit) {
-       ngDialog.open({
-         template: 'views/include/error.html',
-         controller: 'PopError'
-       });
+      $scope.error = 'Selecione um valor para recarregar';
+
+      ngDialog.open({
+        template: 'views/include/error.html',
+        scope   : $scope
+      });
 
     } else {
       ngDialog.open({
-        template: 'views/include/credit-card.html',
+        template  : 'views/include/credit-card.html',
         controller: 'CreditCard',
-        scope: $scope
+        scope     : $scope
       });
     }
   };
@@ -43,25 +63,22 @@ controllers.controller('Credit', ['ngDialog', '$rootScope', '$scope', '$location
 }]);
 
 
-//Pop Error
-controllers.controller('PopError', ['$scope', function ($scope) {
-  $scope.error = 'Selecione um valor para recarregar.'
-}]);
-
-
-//Credit card
-controllers.controller('CreditCard', ['$rootScope', '$scope', '$location', function ($rootScope, $scope, $location) {
-  var balance = parseInt($rootScope.balance),
-      credit  = parseInt($scope.credit);
-
+//CreditCard
+controllers.controller('CreditCard', ['CreditService', '$rootScope', '$scope', '$location', function (CreditService, $rootScope, $scope, $location) {
   $scope.buy = function () {
-    $rootScope.balance = balance + credit;
-    $location.path('dashboard');
-    $scope.closeThisDialog();
+    CreditService.update({
+      balance: $rootScope.user.balance,
+      email  : $rootScope.user.email,
+      credit : $scope.credit
+    })
+    .success(function () {
+      $scope.closeThisDialog();
+      $location.path('dashboard');
+    });
   };
 
   $scope.goBack = function () {
-    $location.path('credit');
     $scope.closeThisDialog();
+    $location.path('credit');
   };
 }]);
