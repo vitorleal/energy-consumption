@@ -64,5 +64,28 @@ light.config(['$routeProvider', '$locationProvider', function ($routeProvider, $
         }]
       }
     })
+    //Credit
+    .when('/debit', {
+      templateUrl: 'views/debit.html',
+      controller : 'Debit',
+      public: false,
+      resolve: {
+        user: ['Local', 'LoginService', '$rootScope', function (Local, LoginService, $rootScope) {
+          var user = Local.get('user');
+
+          if (user) {
+            LoginService.send({
+              email: user.email,
+              pass : user.pass
+            })
+            .success(function (data) {
+              Local.set('user', data);
+              $rootScope.user = data;
+            });
+
+          }
+        }]
+      }
+    })
     .otherwise({ redirectTo: '/' });
 }]);

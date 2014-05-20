@@ -66,13 +66,44 @@ exports.addCredit = function (req, res) {
 };
 
 
+//Remove Credit
+exports.removeCredit = function (req, res) {
+  var email   = req.body.email,
+      kwh     = parseFloat(req.body.kwh),
+      balance = parseFloat(req.body.balance),
+      price   = 0.33214,
+      consume = parseFloat((Math.random() * 3 + 2).toFixed(1));
+
+  db.collection('user', function (err, collection) {
+    collection.update({ email: email }, {
+      $set: {
+        balance: (balance - (consume * price)).toFixed(2),
+        kwh    : (kwh + consume).toFixed(2)
+      }
+    }, function (err, user) {
+      db.collection('history', function (err, collection) {
+        collection.insert({
+          email   : email,
+          price   : (consume * price).toFixed(2),
+          consumed: consume
+
+        }, function (err, user) {
+          res.send({ message: 'Credito debitado' });
+        });
+      });
+    });
+  });
+};
+
+
 //Populate DB
 var populateDB = function () {
   var user = {
     name: 'Pablo Larrieux',
     email: 'pablo@telefonica.com',
     pass : '1234',
-    balance: 50
+    balance: 50,
+    kwh  : 500
   };
 
   db.collection('user', function (err, collection) {

@@ -12,6 +12,7 @@ app.use(express.static(path.resolve(__dirname, 'public')));
 app.get('/', routes.index);
 app.post('/login', routes.login);
 app.post('/credit', routes.addCredit);
+app.post('/debit', routes.removeCredit);
 
 
 app.listen(5000);

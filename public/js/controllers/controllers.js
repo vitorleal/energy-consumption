@@ -29,10 +29,14 @@ controllers.controller('Login', ['Local', 'ngDialog', '$scope', '$location', 'Lo
 controllers.controller('Dashbard', ['$rootScope', '$scope', '$location', '$timeout', function ($rootScope, $scope, $location, $timeout) {
   $timeout(function () {
     $scope.balance = $rootScope.user.balance;
-  }, 10);
+  }, 100);
 
   $scope.goToCredit = function () {
     $location.path('credit');
+  };
+
+  $scope.goToDebit = function () {
+    $location.path('debit');
   };
 }]);
 
@@ -82,5 +86,26 @@ controllers.controller('CreditCard', ['CreditService', '$rootScope', '$scope', '
   $scope.goBack = function () {
     $scope.closeThisDialog();
     $location.path('credit');
+  };
+}]);
+
+
+//Debit Credit
+controllers.controller('Debit', ['DebitService', '$rootScope', '$scope', '$location', function (DebitService, $rootScope, $scope, $location) {
+  $scope.balance = $rootScope.user.balance;
+
+  $scope.debit = function () {
+    DebitService.send({
+      email: $rootScope.user.email,
+      balance: $rootScope.user.balance,
+      kwh: $rootScope.user.kwh
+    })
+    .success(function () {
+      $location.path('dashboard');
+    });
+  };
+
+  $scope.goBack = function () {
+    $location.path('dashboard');
   };
 }]);

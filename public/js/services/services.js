@@ -32,6 +32,22 @@ services.factory('CreditService', ['$http', function ($http) {
 }]);
 
 
+//Debit factory
+services.factory('DebitService', ['$http', function ($http) {
+  var path    = '/debit',
+      factory = {};
+
+  //Debit credit
+  factory.send = function (data) {
+    var debit = $http.post(path, data);
+
+    return debit;
+  };
+
+  return factory;
+}]);
+
+
 //Local
 services.factory('Local', ['$rootScope', function ($rootScope) {
   var factory = {};
