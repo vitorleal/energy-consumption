@@ -1,5 +1,5 @@
 <section class="app-section">
-  <div class="app-user-area" data-ng-include="'views/include/balance.html'"></div>
+  <div class="app-user-area" data-ng-include="'include/balance.html'"></div>
 
   <div class="app-content">
     <h4 data-ng-show="history">Histórico dos últimos 7 dias:</h4>
@@ -23,8 +23,8 @@
     </table>
 
     <div class="credit-buttons">
-      <button title="Comprar crédito" data-ng-click="goToCredit()" class="btn btn-block btn-lg btn-success">Adicionar crédito</button>
-      <button data-ng-click="goToDebit()" class="btn btn-block btn-lg btn-default">Debitar usuário</button>
+      <button data-ng-click="goToCredit()" class="btn btn-block btn-lg btn-success">Adicionar crédito</button>
+      <button data-ng-click="goToDebit()"  class="btn btn-block btn-lg btn-default">Debitar usuário</button>
     </div>
   </div>
 </section>

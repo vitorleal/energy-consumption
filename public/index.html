@@ -26,9 +26,9 @@
     <script src="js/libs/c3/c3.min.js"></script>
   </head>
 
-  <body data-ng-app="light" ng-class="{ 'bg-green': location.path() === '/' }">
+  <body data-ng-app="light" data-ng-class="{ 'bg-green': location.path() === '/' }">
     <loader class="loader"></loader>
-    <header ng-hide="location.path() === '/'" class="app-header" data-ng-include="'views/include/header.html'"></header>
+    <header data-ng-hide="location.path() === '/'" data-ng-include="'include/header.html'" class="app-header"></header>
 
     <main data-ng-view class="animate"></main>
 

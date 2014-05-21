@@ -28,7 +28,6 @@ directives.directive('bar', ['$timeout', function ($timeout) {
       graph: '='
     },
     link: function (scope, element, attr) {
-      console.log(attr);
       scope.$watch('graph', function () {
         if(scope.graph) {
           $timeout(function () {

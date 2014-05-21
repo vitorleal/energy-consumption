@@ -14,7 +14,7 @@ controllers.controller('Login', ['Local', 'ngDialog', '$scope', '$location', 'Lo
         $scope.error = data.error;
 
         ngDialog.open({
-          template: 'views/include/error.html',
+          template: 'include/error.html',
           scope   : $scope
         });
 
@@ -61,13 +61,13 @@ controllers.controller('Credit', ['user', 'ngDialog', '$scope', '$location',
       $scope.error = 'Selecione um valor para recarregar';
 
       ngDialog.open({
-        template: 'views/include/error.html',
+        template: 'include/error.html',
         scope   : $scope
       });
 
     } else {
       ngDialog.open({
-        template  : 'views/include/credit-card.html',
+        template  : 'include/credit-card.html',
         controller: 'CreditCard',
         scope     : $scope
       });

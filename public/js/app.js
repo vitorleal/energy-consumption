@@ -1,4 +1,4 @@
-var light = angular.module('light', ['ngAnimate', 'ngRoute', 'light.services', 'light.controllers', 'light.directives']);
+var light = angular.module('light', ['ngAnimate', 'ngRoute', 'light.services', 'light.controllers', 'light.directives', 'light.templates']);
 
 
 //Run
@@ -23,13 +23,13 @@ light.config(['$httpProvider', '$routeProvider', '$locationProvider',
 
   $routeProvider
     .when('/', {
-      templateUrl: 'views/login.html',
+      templateUrl: 'login.html',
       controller : 'Login',
       public     : true
     })
     //Dashboard
     .when('/dashboard', {
-      templateUrl: 'views/dashbard.html',
+      templateUrl: 'dashbard.html',
       controller : 'Dashbard',
       public: false,
       resolve: {
@@ -49,7 +49,7 @@ light.config(['$httpProvider', '$routeProvider', '$locationProvider',
     })
     //Credit
     .when('/credit', {
-      templateUrl: 'views/credit.html',
+      templateUrl: 'credit.html',
       controller : 'Credit',
       public: false,
       resolve: {
@@ -69,7 +69,7 @@ light.config(['$httpProvider', '$routeProvider', '$locationProvider',
     })
     //Credit
     .when('/debit', {
-      templateUrl: 'views/debit.html',
+      templateUrl: 'debit.html',
       controller : 'Debit',
       public: false,
       resolve: {
