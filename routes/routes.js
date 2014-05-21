@@ -117,12 +117,23 @@ exports.showHistory = function (req, res) {
           res.send({ history: [] });
 
         } else {
-          var kWh   = ['kWh'];
+          var kWh          = ['kWh'],
+              avaragePrice = 0,
+              avarageKwh   = 0;
 
           history.forEach(function (k, v) {
             kWh.push(k.consumed);
+            avaragePrice += parseFloat(k.price);
+            avarageKwh += parseFloat((k.consumed));
           });
-          res.send({ history: history, graph: { kWh: kWh } });
+          res.send({
+            history: history,
+            graph: { kWh: kWh },
+            avarage: {
+              price: (avaragePrice / 7).toFixed(2),
+              kWh  : (avarageKwh / 7).toFixed(2)
+            }
+          });
         }
       });
     }

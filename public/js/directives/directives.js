@@ -18,7 +18,7 @@ directives.directive('loader', ['$rootScope', function ($rootScope) {
 }]);
 
 
-//bar chart
+//Bar Chart
 directives.directive('bar', ['$timeout', function ($timeout) {
   return {
     restrict: 'E',
@@ -28,9 +28,25 @@ directives.directive('bar', ['$timeout', function ($timeout) {
       graph: '='
     },
     link: function (scope, element, attr) {
-      $timeout(function () {
+      console.log(attr);
+      scope.$watch('graph', function () {
+        if(scope.graph) {
+          $timeout(function () {
+            _generateGraph();
+          }, 400);
+
+        } else if(scope.chart) {
+          scope.chart.load({
+            columns: [scope.graph.kWh]
+          });
+        }
+      });
+
+      //Generate the bar chart
+      var _generateGraph = function () {
         if (scope.graph.kWh.length > 1) {
-          var chart = c3.generate({
+          scope.chart = c3.generate({
+            bindto: '#'+ attr.id,
             size: { height: 250 },
             data: {
               columns: [scope.graph.kWh],
@@ -52,7 +68,7 @@ directives.directive('bar', ['$timeout', function ($timeout) {
             legend : { show: false }
           });
         }
-      }, 400);
+      };
     }
   };
 }]);

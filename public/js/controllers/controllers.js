@@ -37,6 +37,7 @@ controllers.controller('Dashbard', ['user' , 'HistoryService', '$scope', '$locat
   .success(function (data) {
     $scope.history = data.history;
     $scope.graph   = data.graph;
+    $scope.avarage = data.avarage;
   });
 
   $scope.goToCredit = function () {
