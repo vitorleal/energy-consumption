@@ -14,6 +14,7 @@ app.post('/login', routes.login);
 app.post('/credit', routes.addCredit);
 app.post('/debit', routes.removeCredit);
 app.post('/history', routes.showHistory);
+app.post('/reset', routes.resetUser);
 
 
 app.listen(5000);

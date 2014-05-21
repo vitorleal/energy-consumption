@@ -77,15 +77,16 @@ exports.removeCredit = function (req, res) {
   db.collection('user', function (err, collection) {
     collection.update({ email: email }, {
       $set: {
-        balance: (balance - (consume * price)).toFixed(2),
-        kwh    : (kwh + consume).toFixed(2)
+        balance   : (balance - (consume * price)).toFixed(2),
+        kwh       : (kwh + consume).toFixed(2)
       }
     }, function (err, user) {
       db.collection('history', function (err, collection) {
         collection.insert({
-          email   : email,
-          price   : (consume * price).toFixed(2),
-          consumed: consume
+          email     : email,
+          price     : (consume * price).toFixed(2),
+          consumed  : consume,
+          created_at: new Date()
 
         }, function (err, user) {
           res.send({ message: 'Credito debitado' });
@@ -104,7 +105,7 @@ exports.showHistory = function (req, res) {
     if (err) {
 
     } else {
-      collection.find({ email: email }).toArray(function (err, history) {
+      collection.find({ email: email }).sort({ created_at: -1 }).toArray(function (err, history) {
         if (!history) {
           res.send({ history: [] });
 
@@ -115,6 +116,30 @@ exports.showHistory = function (req, res) {
     }
   });
 };
+
+
+//Clean history
+exports.resetUser = function (req, res) {
+  var email = req.body.email,
+      user = {
+        name: 'Pablo Larrieux',
+        email: 'pablo@telefonica.com',
+        pass : '1234',
+        balance: 50,
+        kwh  : 500
+      };
+
+  db.collection('user', function (err, collection) {
+    collection.update({ email: email }, user, function (err, user) {
+      db.collection('history', function (err, collection) {
+        collection.drop(function () {
+          res.send({ message: 'User reseted' });
+        });
+      });
+    });
+  });
+};
+
 
 
 //Populate DB

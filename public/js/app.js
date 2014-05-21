@@ -2,7 +2,7 @@ var light = angular.module('light', ['ngRoute', 'light.services', 'light.control
 
 
 //Run
-light.run( function($rootScope, $location, Local) {
+light.run(['$rootScope', '$location', 'Local', function($rootScope, $location, Local) {
   $rootScope.$on('$routeChangeStart', function(event, next, current) {
     var user = Local.get('user');
 
@@ -10,11 +10,13 @@ light.run( function($rootScope, $location, Local) {
       $location.path('login');
     }
   });
-});
+}]);
 
 
 //Confing
-light.config(['$httpProvider', '$routeProvider', '$locationProvider', function ($httpProvider, $routeProvider, $locationProvider) {
+light.config(['$httpProvider', '$routeProvider', '$locationProvider',
+  function ($httpProvider, $routeProvider, $locationProvider) {
+
   $httpProvider.interceptors.push('httpInterceptor');
 
   $routeProvider

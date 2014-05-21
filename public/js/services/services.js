@@ -1,7 +1,9 @@
 var services = angular.module('light.services', []);
 
 //Login factory
-services.factory('LoginService', ['$http', '$rootScope', 'Local', function ($http, $rootScope, Local) {
+services.factory('LoginService', ['$http', '$rootScope', 'Local',
+    function ($http, $rootScope, Local) {
+
   var path    = '/login',
       factory = {};
 
@@ -20,7 +22,6 @@ services.factory('LoginService', ['$http', '$rootScope', 'Local', function ($htt
       Local.set('user', data);
       $rootScope.user = data;
 
-      console.log(data);
       return data;
     });
 
@@ -65,14 +66,22 @@ services.factory('DebitService', ['$http', function ($http) {
 
 //Debit factory
 services.factory('HistoryService', ['$http', function ($http) {
-  var path    = '/history',
-      factory = {};
+  var path      = '/history',
+      pathReset = '/reset',
+      factory   = {};
 
   //History
   factory.get = function (data) {
     var history = $http.post(path, data);
 
     return history;
+  };
+
+  //Reset user history
+  factory.reset = function (data) {
+    var reset = $http.post(pathReset, data);
+
+    return reset;
   };
 
   return factory;
@@ -106,7 +115,7 @@ services.factory('httpInterceptor', ['$q', '$rootScope', function ($q, $rootScop
       numLoadings++;
       $rootScope.$broadcast("loader:show");
 
-      return config || $q.when(config)
+      return config || $q.when(config);
     },
     response: function (response) {
       if ((--numLoadings) === 0) {

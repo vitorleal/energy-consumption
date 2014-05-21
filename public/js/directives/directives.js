@@ -12,5 +12,5 @@ directives.directive('loader', ['$rootScope', function ($rootScope) {
         return element.hide();
       });
     }
-  }
+  };
 }]);

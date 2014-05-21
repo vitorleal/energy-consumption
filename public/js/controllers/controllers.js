@@ -1,7 +1,9 @@
 var controllers = angular.module('light.controllers', ['ngDialog']);
 
 //Loing
-controllers.controller('Login', ['Local', 'ngDialog', '$scope', '$location', 'LoginService', function (Local, ngDialog, $scope, $location, LoginService) {
+controllers.controller('Login', ['Local', 'ngDialog', '$scope', '$location', 'LoginService',
+  function (Local, ngDialog, $scope, $location, LoginService) {
+
   $scope.login = function () {
     LoginService.send({
       email: $scope.email,
@@ -26,7 +28,9 @@ controllers.controller('Login', ['Local', 'ngDialog', '$scope', '$location', 'Lo
 
 
 //Dashboard
-controllers.controller('Dashbard', ['user' , 'HistoryService', '$scope', '$location', function (user, HistoryService, $scope, $location) {
+controllers.controller('Dashbard', ['user' , 'HistoryService', '$scope', '$location',
+  function (user, HistoryService, $scope, $location) {
+
   $scope.user = user;
 
   HistoryService.get({ email: $scope.user.email })
@@ -45,7 +49,9 @@ controllers.controller('Dashbard', ['user' , 'HistoryService', '$scope', '$locat
 
 
 //Buy Credit
-controllers.controller('Credit', ['user', 'ngDialog', '$scope', '$location', function (user, ngDialog, $scope, $location) {
+controllers.controller('Credit', ['user', 'ngDialog', '$scope', '$location',
+    function (user, ngDialog, $scope, $location) {
+
   $scope.user = user;
 
   $scope.buy = function () {
@@ -73,7 +79,9 @@ controllers.controller('Credit', ['user', 'ngDialog', '$scope', '$location', fun
 
 
 //CreditCard
-controllers.controller('CreditCard', ['CreditService', '$scope', '$location', function (CreditService, $scope, $location) {
+controllers.controller('CreditCard', ['CreditService', '$scope', '$location',
+    function (CreditService, $scope, $location) {
+
   $scope.buy = function () {
     CreditService.update({
       balance: $scope.user.balance,
@@ -94,7 +102,9 @@ controllers.controller('CreditCard', ['CreditService', '$scope', '$location', fu
 
 
 //Debit Credit
-controllers.controller('Debit', ['user', 'DebitService', '$scope', '$location', function (user, DebitService, $scope, $location) {
+controllers.controller('Debit', ['user', 'DebitService', 'HistoryService', '$scope', '$location',
+    function (user, DebitService, HistoryService, $scope, $location) {
+
   $scope.user = user;
 
   $scope.debit = function () {
@@ -102,6 +112,15 @@ controllers.controller('Debit', ['user', 'DebitService', '$scope', '$location', 
       email  : $scope.user.email,
       balance: $scope.user.balance,
       kwh    : $scope.user.kwh
+    })
+    .success(function () {
+      $location.path('dashboard');
+    });
+  };
+
+  $scope.reset = function() {
+    HistoryService.reset({
+      email: $scope.user.email
     })
     .success(function () {
       $location.path('dashboard');
