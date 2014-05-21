@@ -25,44 +25,34 @@ directives.directive('bar', ['$timeout', function ($timeout) {
     template: '<div></div>',
     replace: true,
     scope: {
-      data: '='
+      graph: '='
     },
     link: function (scope, element, attr) {
       $timeout(function () {
-        console.log(scope.data.kWh);
-        if (scope.data.kWh.length > 1) {
+        if (scope.graph.kWh.length > 1) {
           var chart = c3.generate({
-            size: {
-              height: 220,
-            },
+            size: { height: 250 },
             data: {
-              columns: [scope.data.kWh],
-              type: 'bar',
-              colors: {
-                kWh: '#27AAAF'
-              },
-              labels: {
+              columns: [scope.graph.kWh],
+              type   : 'bar',
+              colors : { kWh: '#27AAAF' },
+              labels : {
                 format: {
-                  y: function (v, id) {
-                    return v + ' ' + id;
-                  }
+                  y: function (v, id) { return v + ' ' + id; }
                 }
               }
             },
-            bar: {
-              width: {
-                  ratio: 0.8
+            axis: {
+              x: {
+                type: 'categorized',
+                categories: ['dia 1', 'dia 2', 'dia 3', 'dia 4', 'dia 5', 'dia 6', 'dia 7']
               }
             },
-            tooltip: {
-              show: false
-            },
-            legend: {
-              show: false
-            }
+            tooltip: { show: false },
+            legend : { show: false }
           });
         }
-      }, 600);
+      }, 400);
     }
   };
 }]);

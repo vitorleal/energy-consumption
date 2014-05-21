@@ -11,6 +11,7 @@ var gulp   = require('gulp'),
 gulp.task('scripts', function() {
   return gulp.src(paths.scripts)
     .pipe(concat('app.min.js'))
+    .pipe(uglify())
     .pipe(gulp.dest('js'));
 });
 

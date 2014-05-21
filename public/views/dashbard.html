@@ -2,7 +2,7 @@
   <div class="app-user-area" data-ng-include="'views/include/balance.html'"></div>
 
   <div class="app-content">
-    <bar id="chart" data="graph" class="bar-chart"></bar>
+    <bar id="chart" data-graph="graph"></bar>
 
     <table data-ng-show="history" class="table table-striped table-bordered">
       <thead>
@@ -14,8 +14,8 @@
       </thead>
       <tbody>
         <tr data-ng-repeat="h in history">
-          <td class="text-center">{{ $index + 1 }}</td>
-          <td class="text-center">R$<strong>{{ h.price }}</strong></td>
+          <td class="text-center">dia {{ $index + 1 }}</td>
+          <td class="text-center">R$ <strong>{{ h.price }}</strong></td>
           <td class="text-center"><strong>{{ h.consumed }}</strong>kWh</td>
         </tr>
       </tbody>
