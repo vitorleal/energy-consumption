@@ -1,4 +1,4 @@
-var light = angular.module('light', ['ngRoute', 'light.services', 'light.controllers', 'light.directives']);
+var light = angular.module('light', ['ngAnimate', 'ngRoute', 'light.services', 'light.controllers', 'light.directives']);
 
 
 //Run
