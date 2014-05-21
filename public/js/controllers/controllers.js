@@ -36,6 +36,7 @@ controllers.controller('Dashbard', ['user' , 'HistoryService', '$scope', '$locat
   HistoryService.get({ email: $scope.user.email })
   .success(function (data) {
     $scope.history = data.history;
+    $scope.graph   = data.graph;
   });
 
   $scope.goToCredit = function () {

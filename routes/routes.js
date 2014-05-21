@@ -7,7 +7,14 @@ var mongo  = require('mongodb'),
       journal       : true,
       safe          : true
     }),
-    db = new Db('light', server);
+    db   = new Db('light', server),
+    user = {
+      name   : 'Pablo Larrieux',
+      email  : 'pablo@telefonica.com',
+      pass   : '1234',
+      balance: '50.00',
+      kwh    : 500
+    };
 
 
 //DB open
@@ -103,14 +110,19 @@ exports.showHistory = function (req, res) {
 
   db.collection('history', function (err, collection) {
     if (err) {
-
+      res.send({ error: 'Erro ao resgatar o histórico' });
     } else {
-      collection.find({ email: email }).sort({ created_at: -1 }).toArray(function (err, history) {
+      collection.find({ email: email }).sort({ created_at: -1 }).limit(7).toArray(function (err, history) {
         if (!history) {
           res.send({ history: [] });
 
         } else {
-          res.send({ history: history });
+          var kWh   = ['kWh'];
+
+          history.forEach(function (k, v) {
+            kWh.push(k.consumed);
+          });
+          res.send({ history: history, graph: { kWh: kWh } });
         }
       });
     }
@@ -120,14 +132,7 @@ exports.showHistory = function (req, res) {
 
 //Clean history
 exports.resetUser = function (req, res) {
-  var email = req.body.email,
-      user = {
-        name: 'Pablo Larrieux',
-        email: 'pablo@telefonica.com',
-        pass : '1234',
-        balance: '50.00',
-        kwh  : 500
-      };
+  var email = req.body.email;
 
   db.collection('user', function (err, collection) {
     collection.update({ email: email }, user, function (err, user) {
@@ -144,14 +149,6 @@ exports.resetUser = function (req, res) {
 
 //Populate DB
 var populateDB = function () {
-  var user = {
-    name: 'Pablo Larrieux',
-    email: 'pablo@telefonica.com',
-    pass : '1234',
-    balance: '50.00',
-    kwh  : 500
-  };
-
   db.collection('user', function (err, collection) {
     collection.insert(user, { safe: true }, function (err, result) {});
   });
