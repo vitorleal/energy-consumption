@@ -21,8 +21,10 @@
     <script src="js/libs/ngDialog/ngDialog.min.js"></script>
   </head>
 
-  <body data-ng-app="light">
+  <body data-ng-app="light" ng-class="{ 'bg-green': location.path() === '/' }">
     <loader class="loader"></loader>
+    <header ng-hide="location.path() === '/'" class="app-header" data-ng-include="'views/include/header.html'"></header>
+
     <main data-ng-view></main>
 
     <script src="js/app.min.js"></script>

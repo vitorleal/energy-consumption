@@ -3,6 +3,8 @@ var light = angular.module('light', ['ngRoute', 'light.services', 'light.control
 
 //Run
 light.run(['$rootScope', '$location', 'Local', function($rootScope, $location, Local) {
+  $rootScope.location = $location;
+
   $rootScope.$on('$routeChangeStart', function(event, next, current) {
     var user = Local.get('user');
 
