@@ -59,7 +59,7 @@ exports.addCredit = function (req, res) {
     var balance = parseFloat(req.body.balance),
         credit  = parseFloat(req.body.credit);
 
-    collection.update({ email: email }, { $set: { balance: balance + credit } }, function (err, user) {
+    collection.update({ email: email }, { $set: { balance: (balance + credit).toFixed(2) } }, function (err, user) {
       res.send({ message: 'Credito atualizado com sucess' });
     });
   });
@@ -125,7 +125,7 @@ exports.resetUser = function (req, res) {
         name: 'Pablo Larrieux',
         email: 'pablo@telefonica.com',
         pass : '1234',
-        balance: 50,
+        balance: '50.00',
         kwh  : 500
       };
 
@@ -148,7 +148,7 @@ var populateDB = function () {
     name: 'Pablo Larrieux',
     email: 'pablo@telefonica.com',
     pass : '1234',
-    balance: 50,
+    balance: '50.00',
     kwh  : 500
   };
 
