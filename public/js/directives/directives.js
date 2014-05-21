@@ -65,7 +65,10 @@ directives.directive('bar', ['$timeout', function ($timeout) {
               }
             },
             tooltip: { show: false },
-            legend : { show: false }
+            legend : { show: false },
+            interaction: {
+              enabled: false
+            }
           });
         }
       };
