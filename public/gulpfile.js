@@ -39,9 +39,9 @@ gulp.task('template', function () {
 
 //Watch changes in less and js files
 gulp.task('watch', function() {
-  gulp.watch(paths.scripts, ['scripts']);
-  gulp.watch(paths.less,    ['less']);
-  gulp.watch(paths.less,    ['template']);
+  gulp.watch(paths.scripts,   ['scripts']);
+  gulp.watch(paths.less,      ['less']);
+  gulp.watch(paths.templates, ['template']);
 });
 
 

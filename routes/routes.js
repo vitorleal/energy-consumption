@@ -14,7 +14,7 @@ var helper = require('./helpers'),
       email  : 'pablo@telefonica.com',
       pass   : '1234',
       balance: '50.00',
-      kwh    : 25
+      kwh    : 22
     };
 
 
@@ -82,14 +82,6 @@ exports.removeCredit = function (req, res) {
       price   = helper.getPrice(kwh),
       consume = helper.generateConsume();
 
-  console.log({
-    email: email,
-    kwh: kwh,
-    balance: balance,
-    price: price,
-    consume: consume
-  });
-
   db.collection('user', function (err, collection) {
     collection.update({ email: email }, {
       $set: {
@@ -102,6 +94,8 @@ exports.removeCredit = function (req, res) {
           email     : email,
           price     : (consume * price).toFixed(2),
           consumed  : consume,
+          price_used: price,
+          kwh_total : (kwh + consume).toFixed(2),
           created_at: new Date()
 
         }, function (err, user) {
@@ -123,7 +117,7 @@ exports.showHistory = function (req, res) {
     } else {
       collection.find({ email: email })
         .sort({ created_at: -1 })
-        .limit(7)
+        .limit(10)
        .toArray(function (err, history) {
 
         if (!history) {

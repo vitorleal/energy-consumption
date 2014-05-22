@@ -125,3 +125,14 @@ body {
   width: 100%;
   max-width: 100%;
 }
+.panel-warning {
+  border-color: #fc9f24;
+}
+.panel-warning .panel-heading {
+  background-color: #fdc06f;
+  border-color: #fc9f24;
+  color: #ffffff;
+}
+.panel-warning .panel-body {
+  font-size: 22px;
+}
