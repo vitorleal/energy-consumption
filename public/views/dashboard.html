@@ -1,0 +1,37 @@
+<section class="app-section">
+  <div class="app-user-area" data-ng-include="'include/balance.html'"></div>
+
+  <div class="app-content">
+    <h4 data-ng-show="history">Histórico dos últimos 10 dias:</h4>
+    <bar id="chart" data-graph="graph"></bar>
+
+    <div ng-hide="{{ user.kwh == 20 }}" class="panel panel-warning">
+      <div class="panel-heading">
+        <h3 class="panel-title text-center">kWh consumidos este mês</h3>
+      </div>
+      <div class="panel-body text-center"><strong>{{ user.kwh }}</strong>kWh</div>
+    </div>
+
+    <table data-ng-show="history" class="table table-striped table-bordered">
+      <thead>
+        <tr>
+          <th class="text-center">#</th>
+          <th class="text-center">kWh</th>
+          <th class="text-center">Preço</th>
+        </tr>
+      </thead>
+      <tbody>
+        <tr data-ng-repeat="h in history">
+          <td class="text-center">dia {{ $index + 1 }}</td>
+          <td class="text-center"><strong>{{ h.consumed }}</strong>kWh</td>
+          <td class="text-center">R$ <strong>{{ h.price }}</strong></td>
+        </tr>
+      </tbody>
+    </table>
+
+    <div class="credit-buttons">
+      <button data-ng-click="goToCredit()" class="btn btn-block btn-lg btn-success">Adicionar crédito</button>
+      <button ng-show="user.balance > 0" data-ng-click="goToDebit()"  class="btn btn-block btn-lg btn-default">Debitar usuário</button>
+    </div>
+  </div>
+</section>

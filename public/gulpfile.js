@@ -4,7 +4,6 @@ var gulp   = require('gulp'),
     less   = require('gulp-less'),
     cache  = require('gulp-angular-templatecache'),
     css    = require('gulp-minify-css'),
-    uncss  = require('gulp-uncss'),
     paths  = {
       scripts  : ['js/**/*.js', 'js/app.js', '!js/min/*.js', '!js/libs/**/*.js'],
       libs     : ['js/libs/jquery/*.js', 'js/libs/**/*.js'],
@@ -45,10 +44,6 @@ gulp.task('css', function() {
       keepBreaks: true
     }))
     .pipe(gulp.dest('css'))
-    .pipe(uncss({
-      html: ['index.html', 'views/credit.html', 'views/dashboard.html', 'views/debit.html', 'views/login.html', 'views/include/balance.html', 'views/include/credit-card.html', 'views/include/error.html', 'views/include/header.html']
-    }))
-    .pipe(gulp.dest('css'));
 });
 
 
