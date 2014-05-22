@@ -14,7 +14,7 @@ var helper = require('./helpers'),
       email  : 'pablo@telefonica.com',
       pass   : '1234',
       balance: '50.00',
-      kwh    : 22
+      kwh    : 20
     };
 
 
