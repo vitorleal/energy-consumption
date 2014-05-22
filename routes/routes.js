@@ -1,4 +1,5 @@
-var mongo  = require('mongodb'),
+var helper = require('./helpers'),
+    mongo  = require('mongodb'),
     Server = mongo.Server,
     Db     = mongo.Db,
     BSON   = mongo.BSONPure,
@@ -13,7 +14,7 @@ var mongo  = require('mongodb'),
       email  : 'pablo@telefonica.com',
       pass   : '1234',
       balance: '50.00',
-      kwh    : 500
+      kwh    : 25
     };
 
 
@@ -67,7 +68,7 @@ exports.addCredit = function (req, res) {
         credit  = parseFloat(req.body.credit);
 
     collection.update({ email: email }, { $set: { balance: (balance + credit).toFixed(2) } }, function (err, user) {
-      res.send({ message: 'Credito atualizado com sucess' });
+      res.send({ message: 'Crédito atualizado com sucesso' });
     });
   });
 };
@@ -78,14 +79,22 @@ exports.removeCredit = function (req, res) {
   var email   = req.body.email,
       kwh     = parseFloat(req.body.kwh),
       balance = parseFloat(req.body.balance),
-      price   = 0.33214,
-      consume = parseFloat((Math.random() * 3 + 2).toFixed(1));
+      price   = helper.getPrice(kwh),
+      consume = helper.generateConsume();
+
+  console.log({
+    email: email,
+    kwh: kwh,
+    balance: balance,
+    price: price,
+    consume: consume
+  });
 
   db.collection('user', function (err, collection) {
     collection.update({ email: email }, {
       $set: {
-        balance   : (balance - (consume * price)).toFixed(2),
-        kwh       : (kwh + consume).toFixed(2)
+        balance: helper.calcBalance(price, balance, consume),
+        kwh    : (kwh + consume).toFixed(2)
       }
     }, function (err, user) {
       db.collection('history', function (err, collection) {
@@ -96,7 +105,7 @@ exports.removeCredit = function (req, res) {
           created_at: new Date()
 
         }, function (err, user) {
-          res.send({ message: 'Credito debitado' });
+          res.send({ message: 'Crédito debitado' });
         });
       });
     });
@@ -112,7 +121,11 @@ exports.showHistory = function (req, res) {
     if (err) {
       res.send({ error: 'Erro ao resgatar o histórico' });
     } else {
-      collection.find({ email: email }).sort({ created_at: -1 }).limit(7).toArray(function (err, history) {
+      collection.find({ email: email })
+        .sort({ created_at: -1 })
+        .limit(7)
+       .toArray(function (err, history) {
+
         if (!history) {
           res.send({ history: [] });
 
@@ -124,11 +137,14 @@ exports.showHistory = function (req, res) {
           history.forEach(function (k, v) {
             kWh.push(k.consumed);
             avaragePrice += parseFloat(k.price);
-            avarageKwh += parseFloat((k.consumed));
+            avarageKwh   += parseFloat((k.consumed));
           });
+
           res.send({
             history: history,
-            graph: { kWh: kWh },
+            graph  : {
+              kWh: kWh
+            },
             avarage: {
               price: (avaragePrice / 7).toFixed(2),
               kWh  : (avarageKwh / 7).toFixed(2)

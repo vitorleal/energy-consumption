@@ -8,13 +8,13 @@ app.use(bodyParser());
 app.use(express.static(path.resolve(__dirname, 'public')));
 
 
-//Main root
-app.get('/', routes.index);
-app.post('/login', routes.login);
-app.post('/credit', routes.addCredit);
-app.post('/debit', routes.removeCredit);
+//App roots
+app.get('/',         routes.index);
+app.post('/login',   routes.login);
+app.post('/credit',  routes.addCredit);
+app.post('/debit',   routes.removeCredit);
 app.post('/history', routes.showHistory);
-app.post('/reset', routes.resetUser);
+app.post('/reset',   routes.resetUser);
 
 
 app.listen(5000);

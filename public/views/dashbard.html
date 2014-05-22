@@ -24,7 +24,7 @@
 
     <div class="credit-buttons">
       <button data-ng-click="goToCredit()" class="btn btn-block btn-lg btn-success">Adicionar crédito</button>
-      <button data-ng-click="goToDebit()"  class="btn btn-block btn-lg btn-default">Debitar usuário</button>
+      <button ng-show="user.balance > 0" data-ng-click="goToDebit()"  class="btn btn-block btn-lg btn-default">Debitar usuário</button>
     </div>
   </div>
 </section>
