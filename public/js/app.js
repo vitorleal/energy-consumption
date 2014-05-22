@@ -29,7 +29,7 @@ light.config(['$httpProvider', '$routeProvider', '$locationProvider',
     })
     //Dashboard
     .when('/dashboard', {
-      templateUrl: 'dashbard.html',
+      templateUrl: 'dashboard.html',
       controller : 'Dashbard',
       public: false,
       resolve: {
