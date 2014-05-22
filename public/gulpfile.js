@@ -3,18 +3,28 @@ var gulp   = require('gulp'),
     uglify = require('gulp-uglify'),
     less   = require('gulp-less'),
     cache  = require('gulp-angular-templatecache'),
+    css    = require('gulp-minify-css'),
     paths  = {
-      scripts  : ['js/**/*.js', 'js/app.js', '!js/*.min.js', '!js/libs/**/*.js'],
+      scripts  : ['js/**/*.js', 'js/app.js', '!js/min/*.js', '!js/libs/**/*.js'],
+      libs     : ['js/libs/jquery/*.js', 'js/libs/**/*.js'],
       less     : ['less/app.less', 'less/*.less', 'less/**/*.less'],
       templates: ['views/*.html', 'views/**/*.html']
     };
 
 //Concatenate the js files
 gulp.task('scripts', function() {
-  return gulp.src(paths.scripts)
+  gulp.src(paths.scripts)
     .pipe(concat('app.min.js'))
     .pipe(uglify())
-    .pipe(gulp.dest('js'));
+    .pipe(gulp.dest('js/min/'));
+});
+
+
+//Concatenate js libs
+gulp.task('libs', function() {
+  gulp.src(paths.libs)
+    .pipe(concat('libs.min.js'))
+    .pipe(gulp.dest('js/min/'));
 });
 
 
@@ -23,6 +33,17 @@ gulp.task('less', function () {
   gulp.src('less/app.less')
     .pipe(less())
     .pipe(gulp.dest('css'));
+});
+
+
+//Minify css
+gulp.task('css', function() {
+  gulp.src('css/*.css')
+    .pipe(concat('app.min.css'))
+    .pipe(css({
+      keepBreaks: true
+    }))
+    .pipe(gulp.dest('css/min/'))
 });
 
 
@@ -45,4 +66,4 @@ gulp.task('watch', function() {
 });
 
 
-gulp.task('default', ['template', 'scripts', 'less', 'watch']);
+gulp.task('default', ['template', 'scripts', 'libs', 'less', 'css', 'watch']);
