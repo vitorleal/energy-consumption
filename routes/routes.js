@@ -13,7 +13,7 @@ var helper = require('./helpers'),
       name   : 'Pablo Larrieux',
       email  : 'pablo@telefonica.com',
       pass   : '1234',
-      balance: '30.00',
+      balance: '20.00',
       kwh    : 20,
       kwhBalance: helper.moneytoKwh(30, 20)
     };
