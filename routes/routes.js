@@ -87,7 +87,7 @@ exports.removeCredit = function (req, res) {
       kwh     = parseFloat(req.body.kwh),
       balance = parseFloat(req.body.balance),
       price   = helper.getPrice(kwh),
-      consume = helper.generateConsume();
+      consume = helper.generateConsume(kwh);
 
   db.collection('user', function (err, collection) {
     var newBalance = helper.calcBalance(price, balance, consume);
@@ -95,7 +95,7 @@ exports.removeCredit = function (req, res) {
     collection.update({ email: email }, {
       $set: {
         balance   : newBalance,
-        kwh       : (kwh + consume).toFixed(2),
+        kwh       : (kwh + consume).toFixed(1),
         kwhBalance: helper.moneytoKwh(newBalance, kwh)
       }
     }, function (err, user) {
@@ -106,7 +106,7 @@ exports.removeCredit = function (req, res) {
           price     : (consume * price).toFixed(2),
           consumed  : consume,
           price_used: price,
-          kwh_total : (kwh + consume).toFixed(2),
+          kwh_total : (kwh + consume).toFixed(1),
           created_at: new Date()
 
         }, function (err, user) {

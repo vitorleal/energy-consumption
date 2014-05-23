@@ -27,7 +27,7 @@ exports.calcBalance = function (price, balance, consume) {
 
   if (newBalance <= 0) {
     newBalance = 0;
-  };
+  }
 
   return newBalance;
 };
@@ -40,7 +40,9 @@ exports.calcPrice = function (consume, price) {
 
 
 //Generate consume
-exports.generateConsume = function () {
+exports.generateConsume = function (kwh) {
+  var kWh = parseFloat(kwh);
+
   return parseFloat((Math.random() * 3 + 2).toFixed(1));
 };
 
