@@ -88,7 +88,8 @@ controllers.controller('CreditCard', ['CreditService', '$scope', '$location',
     CreditService.update({
       balance: $scope.user.balance,
       email  : $scope.user.email,
-      credit : $scope.credit
+      credit : $scope.credit,
+      kwh    : $scope.user.kwh
     })
     .success(function () {
       $scope.closeThisDialog();

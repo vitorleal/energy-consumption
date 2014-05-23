@@ -42,4 +42,12 @@ exports.calcPrice = function (consume, price) {
 //Generate consume
 exports.generateConsume = function () {
   return parseFloat((Math.random() * 3 + 2).toFixed(1));
-}
+};
+
+
+//Convert money to kwh
+exports.moneytoKwh = function (balance, kwh) {
+  var price = this.getPrice(kwh);
+
+  return (balance / price).toFixed(1);
+};

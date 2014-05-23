@@ -38,7 +38,7 @@ gulp.task('less', function () {
 
 //Minify css
 gulp.task('css', function() {
-  gulp.src('css/*.css')
+  gulp.src(['css/bootstrap.css', 'css/app.css', 'css/*.css', '!css/*.min.css'])
     .pipe(concat('app.min.css'))
     .pipe(css({
       keepBreaks: true
@@ -61,7 +61,7 @@ gulp.task('template', function () {
 //Watch changes in less and js files
 gulp.task('watch', function() {
   gulp.watch(paths.scripts,   ['scripts']);
-  gulp.watch(paths.less,      ['less']);
+  gulp.watch(paths.less,      ['less', 'css']);
   gulp.watch(paths.templates, ['template']);
 });
 

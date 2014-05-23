@@ -2,8 +2,9 @@
 <html>
   <head>
     <title>Light Pré-Pago</title>
+
     <meta charset="utf-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1">
+    <meta name="viewport"                     content="width=device-width, initial-scale=1, maximum-scale=1">
     <meta name="apple-mobile-web-app-capable" content="yes">
     <meta name="mobile-web-app-capable"       content="yes">
 
@@ -18,6 +19,7 @@
 
   <body data-ng-app="light" data-ng-class="{ 'bg-green': location.path() === '/' }">
     <loader class="loader"></loader>
+
     <header data-ng-hide="location.path() === '/'" data-ng-include="'include/header.html'" class="app-header"></header>
 
     <main data-ng-view class="animate"></main>
