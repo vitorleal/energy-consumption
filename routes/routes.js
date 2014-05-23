@@ -15,6 +15,7 @@ var helper = require('./helpers'),
       pass   : '1234',
       balance: '20.00',
       kwh    : 20,
+      price  : helper.getPrice(20),
       kwhBalance: helper.moneytoKwh(30, 20)
     };
 
@@ -96,7 +97,8 @@ exports.removeCredit = function (req, res) {
       $set: {
         balance   : newBalance,
         kwh       : (kwh + consume).toFixed(1),
-        kwhBalance: helper.moneytoKwh(newBalance, kwh)
+        kwhBalance: helper.moneytoKwh(newBalance, kwh),
+        price     : helper.getPrice((kwh + consume).toFixed(1))
       }
     }, function (err, user) {
       db.collection('history', function (err, collection) {
