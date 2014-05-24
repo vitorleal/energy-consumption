@@ -14,9 +14,9 @@ var helper = require('./helpers'),
       email  : 'pablo@telefonica.com',
       pass   : '1234',
       balance: '20.00',
-      kwh    : 20,
-      price  : helper.getPrice(20),
-      kwhBalance: helper.moneytoKwh(30, 20)
+      kwh    : 0,
+      price  : helper.getPrice(0),
+      kwhBalance: helper.moneyTOkwh(20, 0)
     };
 
 
@@ -73,7 +73,7 @@ exports.addCredit = function (req, res) {
     collection.update({ email: email }, {
       $set: {
         balance   : (balance + credit).toFixed(2),
-        kwhBalance: helper.moneytoKwh((balance + credit), kwh)
+        kwhBalance: helper.moneyTOkwh((balance + credit), kwh)
       }
     }, function (err, user) {
       res.send({ message: 'Crédito atualizado com sucesso' });
@@ -91,24 +91,21 @@ exports.removeCredit = function (req, res) {
       consume = helper.generateConsume(kwh);
 
   db.collection('user', function (err, collection) {
-    var newBalance = helper.calcBalance(price, balance, consume);
+    var newBalance = helper.calcBalance(price.price, balance, consume),
+        kwhBalance = helper.moneyTOkwh(newBalance, (kwh + consume));
 
     collection.update({ email: email }, {
       $set: {
         balance   : newBalance,
         kwh       : (kwh + consume).toFixed(1),
-        kwhBalance: helper.moneytoKwh(newBalance, kwh),
-        price     : helper.getPrice((kwh + consume).toFixed(1))
+        kwhBalance: kwhBalance
       }
     }, function (err, user) {
       db.collection('history', function (err, collection) {
-        helper.moneytoKwh(balance, kwh);
         collection.insert({
           email     : email,
-          price     : (consume * price).toFixed(2),
+          price     : (consume * price.price).toFixed(2),
           consumed  : consume,
-          price_used: price,
-          kwh_total : (kwh + consume).toFixed(1),
           created_at: new Date()
 
         }, function (err, user) {

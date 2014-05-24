@@ -91,18 +91,6 @@ body {
 .user-balance strong {
   font-size: 1.8em;
 }
-.user-balance-range {
-  position: relative;
-}
-.balance-price {
-  bottom: -11px;
-  font-size: 0.6em;
-  line-height: .5em;
-  width: 135px;
-  position: absolute;
-  right: -20px;
-  color: #000000;
-}
 /* Credit */
 .credit-radio {
   display: none;

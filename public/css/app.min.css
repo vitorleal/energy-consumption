@@ -1269,8 +1269,6 @@ body{background:#e6e6e6;position:relative}
 .app-user-area{background:#fff;border-bottom:solid 2px #cdcdcd;color:#fdc06f;padding:10px 20px}
 .user-balance{font-size:1.3em;line-height:2.1em;box-sizing:border-box;-mox-box-sizing:border-box;min-height:45px}
 .user-balance strong{font-size:1.8em}
-.user-balance-range{position:relative}
-.balance-price{bottom:-11px;font-size:.6em;line-height:.5em;width:135px;position:absolute;right:-20px;color:#000}
 .credit-radio{display:none}
 .credit-area .col-xs-6{margin:10px 0}
 .credit-btn.credit-selected,.credit-btn:focus,.credit-btn:hover{background:#fdc06f;border-color:#fc9f24;color:#b76903;font-weight:700}

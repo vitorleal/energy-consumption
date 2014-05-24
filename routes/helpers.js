@@ -2,22 +2,29 @@
 exports.getPrice = function (kWh) {
   var table = [0.12919, 0.22143, 0.332114, 0.36906],
       kwh   = parseFloat(kWh),
-      price;
+      price, range;
 
-  if (kwh <= 30) {
+  if (kwh < 30) {
     price = table[0];
+    range = 1;
 
-  } else if (kwh > 30 && kwh <= 100) {
+  } else if (kwh >= 30 && kwh < 100) {
     price = table[1];
+    range = 2;
 
-  } else if (kwh > 100 && kwh <= 220) {
-    price = table[2];
+  } else if (kwh >= 100 && kwh < 220) {
+    price = table[2],
+    range = 3;
 
   } else {
     price = table[3];
+    range = 4;
   }
 
-  return price;
+  return {
+    price: price,
+    range: range
+  };
 };
 
 
@@ -48,8 +55,61 @@ exports.generateConsume = function (kwh) {
 
 
 //Convert money to kwh
-exports.moneytoKwh = function (balance, kwh) {
-  var price = this.getPrice(kwh);
+exports.moneyTOkwh = function (balance, kwh) {
+  var price  = this.getPrice(kwh),
+      result = 0,
+      range  = price.range;
 
-  return (balance / price).toFixed(1);
+  while (balance > 0) {
+    /*
+    console.log(range);
+    console.log(balance);
+    console.log(result);
+    console.log('---------------');
+    */
+
+    if (range === 1) {
+      if (balance >= 3.87) {
+        balance -= 3.87;
+        result += 30;
+        range++;
+
+      } else {
+        break;
+      }
+    } else if (range === 2) {
+      if (balance >= 15.50) {
+        balance -= 15.50;
+        result += 70;
+        range++;
+
+      } else {
+        break;
+      }
+    } else if (range === 3) {
+      if (balance >= 44.28) {
+        balance -= 44.28;
+        result += 120;
+        range++;
+
+      } else {
+        break;
+      }
+    } else {
+      break;
+    }
+  }
+
+  price   = this.getPrice(kwh + result);
+  result += (balance / price.price);
+
+  /*
+  console.log('price ' + price.price);
+  console.log(range);
+  console.log(balance);
+  console.log(result);
+  console.log('---------------');
+  */
+
+  return result.toFixed(1);
 };
