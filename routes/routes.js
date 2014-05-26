@@ -168,7 +168,14 @@ exports.resetUser = function (req, res) {
   var email = req.body.email;
 
   db.collection('user', function (err, collection) {
-    collection.update({ email: email }, user, function (err, user) {
+    collection.update({ email: email }, {
+      $set: {
+        balance: '20.00',
+        kwh    : 0,
+        price  : helper.getPrice(0),
+        kwhBalance: helper.moneyTOkwh(20, 0)
+      }
+    }, function (err, user) {
       db.collection('history', function (err, collection) {
         collection.drop(function () {
           res.send({ message: 'User reseted' });
