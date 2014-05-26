@@ -17,6 +17,15 @@ var helper = require('./helpers'),
       kwh    : 0,
       price  : helper.getPrice(0),
       kwhBalance: helper.moneyTOkwh(20, 0)
+    },
+    user2 = {
+      name   : 'Roberto Della Piazza Filho',
+      email  : 'rpiazza@telefonica.com',
+      pass   : '1234',
+      balance: '20.00',
+      kwh    : 0,
+      price  : helper.getPrice(0),
+      kwhBalance: helper.moneyTOkwh(20, 0)
     };
 
 
@@ -175,5 +184,6 @@ exports.resetUser = function (req, res) {
 var populateDB = function () {
   db.collection('user', function (err, collection) {
     collection.insert(user, { safe: true }, function (err, result) {});
+    collection.insert(user2, { safe: true }, function (err, result) {});
   });
 };
