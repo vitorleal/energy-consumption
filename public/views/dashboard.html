@@ -22,7 +22,15 @@
       </thead>
       <tbody>
         <tr data-ng-repeat="h in history">
-          <td class="text-center">dia {{ $index + 1 }}</td>
+          <td class="text-center">
+            <ng-pluralize count="$index"
+              when="{
+                0      : 'hoje',
+                1      : 'a 1 dia',
+                'other': 'a {{ $index }} dias'
+              }">
+            </ng-pluralize>
+          </td>
           <td class="text-center"><strong>{{ h.consumed }}</strong>kWh</td>
           <td class="text-center">R$ <strong>{{ h.price }}</strong></td>
         </tr>

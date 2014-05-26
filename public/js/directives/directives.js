@@ -60,7 +60,7 @@ directives.directive('bar', ['$timeout', function ($timeout) {
             axis: {
               x: {
                 type: 'categorized',
-                categories: ['dia 1', 'dia 2', 'dia 3', 'dia 4', 'dia 5', 'dia 6', 'dia 7', 'dia 8', 'dia 9', 'dia 10', 'dia 11', 'dia 12', 'dia 13', 'dai 14']
+                categories: ['hoje', '2 dias', '3 dias', '4 dias', '5 dias', '6 dias', '7 dias', '8 dias', '9 dias', '10 dias']
               }
             },
             tooltip: { show: false },
