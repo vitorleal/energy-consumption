@@ -61,13 +61,6 @@ exports.moneyTOkwh = function (balance, kwh) {
       range  = price.range;
 
   while (balance > 0) {
-    /*
-    console.log(range);
-    console.log(balance);
-    console.log(result);
-    console.log('---------------');
-    */
-
     if (range === 1) {
       if (balance >= 3.87) {
         balance -= 3.87;
@@ -102,14 +95,6 @@ exports.moneyTOkwh = function (balance, kwh) {
 
   price   = this.getPrice(kwh + result);
   result += (balance / price.price);
-
-  /*
-  console.log('price ' + price.price);
-  console.log(range);
-  console.log(balance);
-  console.log(result);
-  console.log('---------------');
-  */
 
   return result.toFixed(1);
 };
